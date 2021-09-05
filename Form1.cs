@@ -1,0 +1,310 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+
+namespace CalculadoraMatrices
+{
+    
+    public partial class Form1 : Form
+    {
+        private TextBox[,] M1;
+        private TextBox[,] M2;
+        private TextBox[,] Resultado;
+        int filasM1;
+        int filasM2;
+        int colM1;
+        int colM2;
+        Double RES1, RES2, RES3;
+        Calculos calculos = new Calculos();
+        bool Numeros = true;
+
+
+        public Form1()
+        {
+            InitializeComponent();
+            btSuma.Enabled = false;
+            btResta.Enabled = false;
+            btProd.Enabled = false;
+        }
+        #region Eventos
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            filasM1 = System.Convert.ToInt32(Fila1.Text);
+            colM1 = System.Convert.ToInt32(Columna1.Text);
+            Matriz1.Controls.Clear();
+            M1 = new TextBox[filasM1, colM1];
+            MatrizA();
+            btSuma.Enabled = true;
+            btResta.Enabled = true;
+            btProd.Enabled = true;
+            btIgua.Enabled = true;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            filasM2 = System.Convert.ToInt32(Fila2.Text);
+            colM2 = System.Convert.ToInt32(Columna2.Text);
+            Matriz2.Controls.Clear();
+            M2 = new TextBox[filasM2, colM2];
+            MatrizB();
+            btSuma.Enabled = true;
+            btResta.Enabled = true;
+            btProd.Enabled = false;
+        }
+        private void btSuma_Click(object sender, EventArgs e)
+        {
+            if (colM1 == colM2 && filasM1 == filasM2)
+            {
+                ResultadoM3.Controls.Clear();
+                Resultado = new TextBox[filasM1, colM1];
+                MatrizResultado();
+                calculos.Suma(RES1,RES2,RES3,M1,M2,Resultado);
+            }
+            else
+            {
+                MessageBox.Show("Para sumar las matrices deben ser del mismo orden");
+            }
+        }
+        private void btResta_Click(object sender, EventArgs e)
+        {
+            if (colM1 == colM2 && filasM1 == filasM2)
+            {
+                ResultadoM3.Controls.Clear();
+                Resultado = new TextBox[filasM1, colM1];
+                MatrizResultado();
+                calculos.Resta(RES1, RES2, RES3, M1, M2, Resultado);
+            }
+            else
+            {
+                MessageBox.Show("Para restar las matrices deben ser del mismo orden");
+            }
+            
+        }
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            ResultadoM3.Controls.Clear();
+            Resultado = new TextBox[filasM1, colM1];
+            MatrizResultado();
+            MultiplicacionEscalar();
+        }
+        private void btProd_Click(object sender, EventArgs e)
+        {
+            
+            
+            ResultadoM3.Controls.Clear();
+            Resultado = new TextBox[filasM1, colM1];
+            ProdResultado();
+
+            if (Numeros)
+            {
+                calculos.Multiplicacion(M1, M2, Resultado);
+            }
+            else
+            {
+                Numeros = true;
+            }
+
+        }
+        private void label8_Click(object sender, EventArgs e)
+        {
+            ResultadoM3.Controls.Clear();
+            Resultado = new TextBox[filasM1, colM1];
+            MatrizResultado();
+            calculos.traspuesta(M1, Resultado);
+
+        }
+
+        #endregion
+
+        #region EventosKeyPress
+
+        private void txtIgual_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != ',') && (e.KeyChar != '-') && (e.KeyChar != 'e')&& (e.KeyChar != '/'))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == '/') && ((sender as TextBox).Text.IndexOf('/') > -1))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == 'e') && ((sender as TextBox).Text.IndexOf('e') > -1))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == '-') && ((sender as TextBox).Text.IndexOf('-') > -1))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+        private void Fila1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+        private void Columna1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+        private void Fila2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+        private void Columna2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        #endregion
+
+        #region Metodos
+
+
+        private void MatrizA()
+        {
+            int columna = Matriz1.Width / colM1;
+            for (int F = 0; F < M1.GetLength(0); F++)
+            {
+                for (int C = 0; C < M1.GetLength(1); C++)
+                {
+                    M1[F, C] = new TextBox();
+                    M1[F, C].Text = "0";
+                    M1[F, C].Top = (F * M1[F, C].Height) + 20;
+                    M1[F, C].Left = C * columna + 6;
+                    M1[F, C].Width = columna;
+                    Matriz1.Controls.Add(M1[F, C]);
+                }
+
+            }
+        }
+        private void MatrizB()
+        {
+            int columna2 = Matriz2.Width / colM2;
+            for (int F = 0; F < M2.GetLength(0); F++)
+            {
+                for (int C = 0; C < M2.GetLength(1); C++)
+                {
+                    M2[F, C] = new TextBox();
+                    M2[F, C].Text = "0";
+                    M2[F, C].Top = (F * M2[F, C].Height) + 20;
+                    M2[F, C].Left = C * columna2 + 6;
+                    M2[F, C].Width = columna2;
+                    Matriz2.Controls.Add(M2[F, C]);
+                }
+
+            }
+        }
+        private void MatrizResultado()
+        {
+            int columna2 = ResultadoM3.Width / colM1;
+            for (int F = 0; F < M1.GetLength(0); F++)
+            {
+                for (int C = 0; C < M1.GetLength(1); C++)
+                {
+                    Resultado[F, C] = new TextBox();
+                    Resultado[F, C].Text = "0";
+                    Resultado[F, C].Top = (F * Resultado[F, C].Height) + 20;
+                    Resultado[F, C].Left = C * columna2 + 6;
+                    Resultado[F, C].Width = columna2;
+                    ResultadoM3.Controls.Add(Resultado[F, C]);
+                }
+
+            }
+        }              
+        private void ProdResultado()
+        {
+            if (M1.GetLength(1) != M2.GetLength(0))
+            {
+                MessageBox.Show("El número de columnas de la primera matriz debe coincidir con el número de filas de la segunda matriz.");
+                Numeros = false;
+            }
+            else
+            {
+                int columna2 = ResultadoM3.Width / colM2;
+                for (int F = 0; F < M1.GetLength(0); F++)
+                {
+                    for (int C = 0; C < M2.GetLength(1); C++)
+                    {
+                        Resultado[F, C] = new TextBox();
+                        Resultado[F, C].Text = "0";
+                        Resultado[F, C].Top = (F * Resultado[F, C].Height) + 20;
+                        Resultado[F, C].Left = C * columna2 + 6;
+                        Resultado[F, C].Width = columna2;
+                        ResultadoM3.Controls.Add(Resultado[F, C]);
+                    }
+
+                }
+            }
+
+        }
+        private void MultiplicacionEscalar()
+        {
+            for (int x = 0; x < Resultado.GetLength(0); x++)
+            {
+                for (int y = 0; y < Resultado.GetLength(1); y++)
+                {
+                    double Result;
+                    string dividir = ""; 
+                    string dividir2 = "";
+                    if (txtIgual.Text.Contains("/"))
+                    {
+                        
+                        string[] division = txtIgual.Text.Split('/');
+                        for (int i = 0; i < division.Length; i++)
+                        {
+
+                            if (i == 0)
+                            {
+                                dividir = division[i];
+                            }
+                            else
+                            {
+                                dividir2 = division[i];
+                            }
+                        }
+                        Result = Convert.ToDouble(dividir) / Convert.ToDouble(dividir2);
+                        RES2 = Result;
+                    }
+                    else
+                    {
+                        RES2 = System.Convert.ToDouble(txtIgual.Text);
+                    }
+                    RES1 = System.Convert.ToDouble(M1[x, y].Text);                                       
+                    RES3 = RES1 * RES2;
+                    Resultado[x, y].Text = System.Convert.ToString(RES3);
+                }
+            }
+        }
+        
+
+        #endregion
+
+    }
+}
