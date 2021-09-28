@@ -142,7 +142,7 @@ namespace CalculadoraMatrices
             // 
             this.ResultadoM3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ResultadoM3.ForeColor = System.Drawing.Color.Black;
-            this.ResultadoM3.Location = new System.Drawing.Point(520, 18);
+            this.ResultadoM3.Location = new System.Drawing.Point(521, 18);
             this.ResultadoM3.Name = "ResultadoM3";
             this.ResultadoM3.Size = new System.Drawing.Size(200, 172);
             this.ResultadoM3.TabIndex = 100;
@@ -291,9 +291,9 @@ namespace CalculadoraMatrices
             this.panel2.Controls.Add(this.ResultadoM3);
             this.panel2.Controls.Add(this.btResta);
             this.panel2.Controls.Add(this.btSuma);
-            this.panel2.Location = new System.Drawing.Point(33, 147);
+            this.panel2.Location = new System.Drawing.Point(33, 148);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(737, 211);
+            this.panel2.Size = new System.Drawing.Size(737, 213);
             this.panel2.TabIndex = 16;
             // 
             // btIgual
@@ -312,6 +312,7 @@ namespace CalculadoraMatrices
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
             this.label8.Location = new System.Drawing.Point(23, 45);
@@ -326,9 +327,9 @@ namespace CalculadoraMatrices
             this.btIgua.FlatAppearance.BorderSize = 0;
             this.btIgua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btIgua.Image = ((System.Drawing.Image)(resources.GetObject("btIgua.Image")));
-            this.btIgua.Location = new System.Drawing.Point(169, 9);
+            this.btIgua.Location = new System.Drawing.Point(169, 11);
             this.btIgua.Name = "btIgua";
-            this.btIgua.Size = new System.Drawing.Size(42, 35);
+            this.btIgua.Size = new System.Drawing.Size(37, 31);
             this.btIgua.TabIndex = 2;
             this.btIgua.UseVisualStyleBackColor = true;
             this.btIgua.Click += new System.EventHandler(this.button1_Click_1);
@@ -344,9 +345,12 @@ namespace CalculadoraMatrices
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.label5.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(23, 21);
+            this.label5.Location = new System.Drawing.Point(24, 20);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 0;
@@ -358,7 +362,7 @@ namespace CalculadoraMatrices
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(800, 415);
+            this.ClientSize = new System.Drawing.Size(800, 416);
             this.Controls.Add(this.btIgual);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

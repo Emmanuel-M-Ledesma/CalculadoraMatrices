@@ -29,11 +29,58 @@ namespace CalculadoraMatrices
                         float sum = 0;
                         for (int j   = 0; j < Col1; j++)
                         {
+                            if (Ma[i,j].Text.Contains("/"))
+                            {
+                                double Result;
+                                string MAX = "";
+                                string MAY = "";
+                                string[] division = Ma[i,j].Text.Split('/');
+                                for (int m = 0; m < division.Length; m++)
+                                {
+
+                                    if (m == 0)
+                                    {
+                                        MAX = division[m];
+                                    }
+                                    else
+                                    {
+                                        MAY = division[m];
+                                    }
+                                }
+                                Result = Convert.ToDouble(MAX) / Convert.ToDouble(MAY);
+                                Ma[i, j].Text =Convert.ToString( Result);
+                            }
+                            if (Mb[j, a].Text.Contains("/"))
+                            {
+                                double Res1;
+                                string MBX = "";
+                                string MBY = "";
+                                string[] division = Mb[j, a].Text.Split('/');
+                                for (int H = 0; H < division.Length; H++)
+                                {
+
+                                    if (H == 0)
+                                    {
+                                        MBX = division[H];
+                                    }
+                                    else
+                                    {
+                                        MBY = division[H];
+                                    }
+                                }
+                                Res1 = Convert.ToDouble(MBX) / Convert.ToDouble(MBY);
+                                Mb[j, a].Text = Convert.ToString(Res1);
+                            }
+                            
+                            
                             R1 = System.Convert.ToDouble(Ma[i, j].Text);
                             R2 = System.Convert.ToDouble(Mb[j, a].Text);
                             R3 = sum;
                             R3 += R1 * R2;
                             sum = (float)R3;
+
+                            
+                            
                         }
                         Res[i, a] = sum;
                         Mr[i, a].Text = System.Convert.ToString(sum);
