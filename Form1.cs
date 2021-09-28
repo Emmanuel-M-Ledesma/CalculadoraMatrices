@@ -33,6 +33,8 @@ namespace CalculadoraMatrices
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Evento click del boton Agregar de la matriz A
+
             if (!(Fila1.Text == "" || Columna1.Text == ""))
             {
                 ConfigA();
@@ -50,6 +52,8 @@ namespace CalculadoraMatrices
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            //Evento click del boton Agregar de la matriz B
+
             if (!(Fila2.Text == "" || Columna2.Text == ""))
             {
                 ConfigB();
@@ -66,6 +70,8 @@ namespace CalculadoraMatrices
         }
         private void btSuma_Click(object sender, EventArgs e)
         {
+            //Evento click del boton suma
+
             if (colM1 == colM2 && filasM1 == filasM2)
             {
                 ResultadoM3.Controls.Clear();
@@ -80,6 +86,8 @@ namespace CalculadoraMatrices
         }
         private void btResta_Click(object sender, EventArgs e)
         {
+            //Evento clic del boton resta
+
             if (colM1 == colM2 && filasM1 == filasM2)
             {
                 ResultadoM3.Controls.Clear();
@@ -95,6 +103,8 @@ namespace CalculadoraMatrices
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
+            //Evento click del boton Igual para la multiplicacion escalar
+
             ResultadoM3.Controls.Clear();
             Matriz2.Controls.Clear();
             Resultado = new TextBox[filasM1, colM1];
@@ -103,6 +113,8 @@ namespace CalculadoraMatrices
         }
         private void btProd_Click(object sender, EventArgs e)
         {
+            //Evento click del boton de multiplicacion
+
             if (colM1 == filasM2)
             {
                 ResultadoM3.Controls.Clear();
@@ -128,6 +140,8 @@ namespace CalculadoraMatrices
         }
         private void label8_Click(object sender, EventArgs e)
         {
+            //Evento click para generar la matriz traspuesta
+
             if (!(filasM1 == 0 || colM1 == 0))
             {
                 ResultadoM3.Controls.Clear();
@@ -148,10 +162,12 @@ namespace CalculadoraMatrices
 
         #region EventosKeyPress
 
+        //Eventos keypress, sirve para que los campos editables del form solo acepten ciertos tipos de datos
+
         private void txtIgual_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != ',') && (e.KeyChar != '-') && (e.KeyChar != 'e') && (e.KeyChar != '/'))
+                (e.KeyChar != ',') && (e.KeyChar != 'e') && (e.KeyChar != '/') && (e.KeyChar != 'π'))
             {
                 e.Handled = true;
             }
@@ -163,11 +179,11 @@ namespace CalculadoraMatrices
             {
                 e.Handled = true;
             }
-            if ((e.KeyChar == '-') && ((sender as TextBox).Text.IndexOf('-') > -1))
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
             {
                 e.Handled = true;
             }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            if ((e.KeyChar == 'π') && ((sender as TextBox).Text.IndexOf('π') > -1))
             {
                 e.Handled = true;
             }
@@ -213,6 +229,8 @@ namespace CalculadoraMatrices
 
         private void ConfigA()
         {
+            //Se establecen las dimensiones de la matriz A
+
             filasM1 = System.Convert.ToInt32(Fila1.Text);
             colM1 = System.Convert.ToInt32(Columna1.Text);
             Matriz1.Controls.Clear();
@@ -221,6 +239,8 @@ namespace CalculadoraMatrices
         }
         private void MatrizA()
         {
+            //Se Configura la matriz A
+
             int columna = Matriz1.Width / colM1;
             for (int F = 0; F < M1.GetLength(0); F++)
             {
@@ -238,6 +258,8 @@ namespace CalculadoraMatrices
         }
         private void ConfigB()
         {
+            //Se establecen las dimensiones de la matriz A
+
             filasM2 = System.Convert.ToInt32(Fila2.Text);
             colM2 = System.Convert.ToInt32(Columna2.Text);
             Matriz2.Controls.Clear();
@@ -246,6 +268,8 @@ namespace CalculadoraMatrices
         }
         private void MatrizB()
         {
+            //Se Configura la matriz B
+
             int columna2 = Matriz2.Width / colM2;
             for (int F = 0; F < M2.GetLength(0); F++)
             {
@@ -263,6 +287,7 @@ namespace CalculadoraMatrices
         }
         private void MatrizResultado()
         {
+            //se configura la matriz resultado *solo para suma y resta*
 
             int columna2 = ResultadoM3.Width / colM1;
             for (int F = 0; F < M1.GetLength(0); F++)
@@ -281,6 +306,8 @@ namespace CalculadoraMatrices
         }
         private void MatrizTraspuesta()
         {
+            //Configura la matriz traspuesta
+
             int columna2 = ResultadoM3.Width / filasM1;
             for (int F = 0; F < M1.GetLength(1); F++)
             {
@@ -298,6 +325,8 @@ namespace CalculadoraMatrices
         }
         private void ProdResultado()
         {
+            //Se le da forma a la matriz resultado *Solo para la multiplicacion*
+
             if (M1.GetLength(1) != M2.GetLength(0))
             {
                 MessageBox.Show("El número de columnas de la primera matriz debe coincidir con el número de filas de la segunda matriz.");
@@ -324,6 +353,10 @@ namespace CalculadoraMatrices
         }
         private void MultiplicacionEscalar()
         {
+            //calculo para la multiplicacion escalar, 
+            //se corrigen los resultados en caso de que sea una fraccion o el contenido del textbox contenga caracteres especiales *En este caso solo para E y π*
+
+
             if (txtIgual.Text != "")
             {
                 for (int x = 0; x < Resultado.GetLength(0); x++)
@@ -377,12 +410,13 @@ namespace CalculadoraMatrices
                             M1[x, y].Text = Convert.ToString(Result);
                         }
                         RES1 = System.Convert.ToDouble(M1[x, y].Text);
-                        if (txtIgual.Text== "e")
+                        if (txtIgual.Text== "e" ||txtIgual.Text == "π")
                         {
                             string con;
                             con = Convert.ToString(RES1);
                             Resultado[x, y].Text = con + txtIgual.Text;
                         }
+                        
                         else
                         {
                             RES2 = System.Convert.ToDouble(txtIgual.Text);

@@ -8,7 +8,10 @@ namespace CalculadoraMatrices
               
         public void Multiplicacion(TextBox[,] Ma, TextBox[,] Mb,TextBox[,] Mr)
         {
+            //Metodo para realizar la multipicacion escalar
             
+
+
             int Col1 = Ma.GetLength(1);
             int Col2 = Mb.GetLength(1);
             int Fil1 = Ma.GetLength(0);
@@ -92,6 +95,8 @@ namespace CalculadoraMatrices
 
         public void traspuesta(TextBox[,]Ma, TextBox[,] res)
         {
+            //Metodo para invertir la matriz a y generar su trasppuesta
+
             for (int x = 0; x < Ma.GetLength(1); x++)
             {
                 for (int y = 0; y < Ma.GetLength(0); y++)
@@ -183,9 +188,69 @@ namespace CalculadoraMatrices
             for (int x = 0; x < Res.GetLength(0); x++)
             {
                 for (int y = 0; y < Res.GetLength(1); y++)
-                {
-                    R1 = System.Convert.ToDouble(Ma[x, y].Text);
-                    R2 = System.Convert.ToDouble(Mb[x, y].Text);
+                {                   
+                    if (!Ma[x, y].Text.Contains("/"))
+                    {
+                        R1 = System.Convert.ToDouble(Ma[x, y].Text);
+                    }
+                    if (!(Mb[x, y].Text.Contains("/")))
+                    {
+                        R2 = System.Convert.ToDouble(Mb[x, y].Text);
+                    }
+                    if (Ma[x, y].Text.Contains("/") || Mb[x, y].Text.Contains("/"))
+                    {
+
+                        if (Ma[x, y].Text.Contains("/"))
+                        {
+                            double Result;
+                            string dividir = "";
+                            string dividir2 = "";
+                            string[] division = Ma[x, y].Text.Split('/');
+                            for (int i = 0; i < division.Length; i++)
+                            {
+
+                                if (i == 0)
+                                {
+                                    dividir = division[i];
+                                }
+                                else
+                                {
+                                    dividir2 = division[i];
+                                }
+
+                            }
+                            Result = Convert.ToDouble(dividir) / Convert.ToDouble(dividir2);
+                            R1 = Result;
+
+                        }
+                        if (Mb[x, y].Text.Contains("/"))
+                        {
+                            double Result;
+                            string dividir = "";
+                            string dividir2 = "";
+                            string[] division = Mb[x, y].Text.Split('/');
+                            for (int i = 0; i < division.Length; i++)
+                            {
+
+                                if (i == 0)
+                                {
+                                    dividir = division[i];
+                                }
+                                else
+                                {
+                                    dividir2 = division[i];
+                                }
+
+                            }
+                            Result = Convert.ToDouble(dividir) / Convert.ToDouble(dividir2);
+                            R2 = Result;
+
+
+                        }
+
+
+
+                    }
                     System.Convert.ToInt32(Res[x, y].Text);
                     R3 = R1 - R2;
                     Res[x, y].Text = System.Convert.ToString(R3);
