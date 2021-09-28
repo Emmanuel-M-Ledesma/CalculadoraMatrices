@@ -227,7 +227,7 @@ namespace CalculadoraMatrices
                 for (int C = 0; C < M1.GetLength(1); C++)
                 {
                     M1[F, C] = new TextBox();
-                    M1[F, C].Text = "";
+                    M1[F, C].Text = "0";
                     M1[F, C].Top = (F * M1[F, C].Height) + 20;
                     M1[F, C].Left = C * columna;
                     M1[F, C].Width = columna;
@@ -252,7 +252,7 @@ namespace CalculadoraMatrices
                 for (int C = 0; C < M2.GetLength(1); C++)
                 {
                     M2[F, C] = new TextBox();
-                    M2[F, C].Text = "";
+                    M2[F, C].Text = "0"; 
                     M2[F, C].Top = (F * M2[F, C].Height) + 20;
                     M2[F, C].Left = C * columna2;
                     M2[F, C].Width = columna2;
@@ -270,7 +270,7 @@ namespace CalculadoraMatrices
                 for (int C = 0; C < M1.GetLength(1); C++)
                 {
                     Resultado[F, C] = new TextBox();
-                    Resultado[F, C].Text = "";
+                    Resultado[F, C].Text = "0";
                     Resultado[F, C].Top = (F * Resultado[F, C].Height) + 20;
                     Resultado[F, C].Left = C * columna2;
                     Resultado[F, C].Width = columna2;
@@ -287,7 +287,7 @@ namespace CalculadoraMatrices
                 for (int C = 0; C < M1.GetLength(0); C++)
                 {
                     Resultado[F, C] = new TextBox();
-                    Resultado[F, C].Text = "";
+                    Resultado[F, C].Text = "0";
                     Resultado[F, C].Top = (F * Resultado[F, C].Height) + 20;
                     Resultado[F, C].Left = C * columna2;
                     Resultado[F, C].Width = columna2;
@@ -330,10 +330,6 @@ namespace CalculadoraMatrices
                 {
                     for (int y = 0; y < Resultado.GetLength(1); y++)
                     {
-                        if (txtIgual.Text == "e")
-                        {
-                            txtIgual.Text = "2,718281";
-                        }
                         if (txtIgual.Text.Contains("/"))
                         {
 
@@ -380,10 +376,20 @@ namespace CalculadoraMatrices
                             Result = Convert.ToDouble(dividir) / Convert.ToDouble(dividir2);
                             M1[x, y].Text = Convert.ToString(Result);
                         }
-                        RES2 = System.Convert.ToDouble(txtIgual.Text);
                         RES1 = System.Convert.ToDouble(M1[x, y].Text);
-                        RES3 = RES1 * RES2;
-                        Resultado[x, y].Text = System.Convert.ToString(RES3);
+                        if (txtIgual.Text== "e")
+                        {
+                            string con;
+                            con = Convert.ToString(RES1);
+                            Resultado[x, y].Text = con + txtIgual.Text;
+                        }
+                        else
+                        {
+                            RES2 = System.Convert.ToDouble(txtIgual.Text);
+                            RES3 = RES1 * RES2;
+                            Resultado[x, y].Text = System.Convert.ToString(RES3);
+                        }
+                        
                     }
                 }
             }
